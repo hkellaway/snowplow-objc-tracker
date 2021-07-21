@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name             = "SnowplowTracker"
+  s.name             = "LegacySnowplowTracker"
   s.version          = "0.6.1"
   s.summary          = "Snowplow event tracker for iOS 7+. Add analytics to your iOS apps and games."
   s.description      = <<-DESC
