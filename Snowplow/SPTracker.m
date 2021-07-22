@@ -28,17 +28,17 @@
 #import "SPUtilities.h"
 #import "SPSession.h"
 
-@interface SPTracker ()
+@interface LegacySPTracker ()
 
-@property (nonatomic, retain) SPEmitter * emitter;
-@property (nonatomic, retain) SPSubject * subject;
+@property (nonatomic, retain) LegacySPEmitter * emitter;
+@property (nonatomic, retain) LegacySPSubject * subject;
 @property (nonatomic, retain) NSString *  appId;
 @property (nonatomic, retain) NSString *  trackerNamespace;
 @property (nonatomic)         BOOL        base64Encoded;
 
 @end
 
-@implementation SPTracker {
+@implementation LegacySPTracker {
     NSMutableDictionary *  _trackerData;
     NSString *             _platformContextSchema;
     BOOL                   _dataCollection;
@@ -52,8 +52,8 @@
 
 // SnowplowTracker Builder
 
-+ (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock {
-    SPTracker* tracker = [SPTracker new];
++ (instancetype) build:(void(^)(id<LegacySPTrackerBuilder>builder))buildBlock {
+    LegacySPTracker* tracker = [LegacySPTracker new];
     if (buildBlock) {
         buildBlock(tracker);
     }
@@ -100,11 +100,11 @@
 
 // Required
 
-- (void) setEmitter:(SPEmitter *)emitter {
+- (void) setEmitter:(LegacySPEmitter *)emitter {
     _emitter = emitter;
 }
 
-- (void) setSubject:(SPSubject *)subject {
+- (void) setSubject:(LegacySPSubject *)subject {
     _subject = subject;
 }
 
@@ -159,7 +159,7 @@
 
 // Event Decoration
 
-- (void) decorateEventPayload:(SPPayload *)pb context:(NSMutableArray *)contextArray {
+- (void) decorateEventPayload:(LegacySPPayload *)pb context:(NSMutableArray *)contextArray {
     
     // Add Tracker and Subject Data to event
     [pb addDictionaryToPayload:_trackerData];
@@ -207,7 +207,7 @@
     return [NSDictionary dictionaryWithObjectsAndKeys:schema, kSPSchema, data, kSPData, nil];
 }
 
-- (double) setTimestamp:(double)timestamp toPayload:(SPPayload *)payload {
+- (double) setTimestamp:(double)timestamp toPayload:(LegacySPPayload *)payload {
     double tstamp = timestamp;
     if(timestamp == 0) {
         tstamp = [SPUtilities getTimestamp];
@@ -216,7 +216,7 @@
     return tstamp;
 }
 
-- (void) addTracker:(SPPayload *)event {
+- (void) addTracker:(LegacySPPayload *)event {
     [_emitter addPayloadToBuffer:event];
 }
 
@@ -275,7 +275,7 @@
         return;
     }
     
-    SPPayload *pb = [[SPPayload alloc] init];
+  LegacySPPayload *pb = [[LegacySPPayload alloc] init];
     
     [self decorateEventPayload:pb context:context];
     [self setTimestamp:timestamp toPayload:pb];
@@ -325,7 +325,7 @@
         return;
     }
     
-    SPPayload *pb = [[SPPayload alloc] init];
+    LegacySPPayload *pb = [[LegacySPPayload alloc] init];
     
     [self decorateEventPayload:pb context:context];
     [self setTimestamp:timestamp toPayload:pb];
@@ -361,7 +361,7 @@
         return;
     }
     
-    SPPayload *pb = [[SPPayload alloc] init];
+    LegacySPPayload *pb = [[LegacySPPayload alloc] init];
     
     [self decorateEventPayload:pb context:context];
     [self setTimestamp:timestamp toPayload:pb];
@@ -379,7 +379,7 @@
     [self addTracker:pb];
 }
 
-- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+- (LegacySPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                           sku:(NSString *)sku
                                          name:(NSString *)name
                                      category:(NSString *)category
@@ -389,7 +389,7 @@
     return [self trackEcommerceTransactionItem:orderId sku:sku name:name category:category price:price quantity:quantity currency:currency context:nil timestamp:0];
 }
 
-- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+- (LegacySPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                           sku:(NSString *)sku
                                          name:(NSString *)name
                                      category:(NSString *)category
@@ -400,7 +400,7 @@
     return [self trackEcommerceTransactionItem:orderId sku:sku name:name category:category price:price quantity:quantity currency:currency context:context timestamp:0];
 }
 
-- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+- (LegacySPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                           sku:(NSString *)sku
                                          name:(NSString *)name
                                      category:(NSString *)category
@@ -411,7 +411,7 @@
     return [self trackEcommerceTransactionItem:orderId sku:sku name:name category:category price:price quantity:quantity currency:currency context:nil timestamp:timestamp];
 }
 
-- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+- (LegacySPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                           sku:(NSString *)sku
                                          name:(NSString *)name
                                      category:(NSString *)category
@@ -420,7 +420,7 @@
                                      currency:(NSString *)currency
                                       context:(NSMutableArray *)context
                                     timestamp:(double)timestamp {
-    SPPayload *pb = [[SPPayload alloc] init];
+    LegacySPPayload *pb = [[LegacySPPayload alloc] init];
     
     [self decorateEventPayload:pb context:context];
     [self setTimestamp:timestamp toPayload:pb];
@@ -494,7 +494,7 @@
         return;
     }
     
-    SPPayload *pb =  [[SPPayload alloc] init];
+    LegacySPPayload *pb =  [[LegacySPPayload alloc] init];
     
     [self decorateEventPayload:pb context:context];
 
@@ -511,7 +511,7 @@
 
     double tstamp = [self setTimestamp:timestamp toPayload:pb];
 
-    for (SPPayload *item in items) {
+    for (LegacySPPayload *item in items) {
         [item addValueToPayload:[NSString stringWithFormat:@"%.0f", tstamp] forKey:kSPTimestamp];
         [item addValueToPayload:orderId  forKey:kSPEcommItemId];
         [item addValueToPayload:currency forKey:kSPEcommItemCurrency];

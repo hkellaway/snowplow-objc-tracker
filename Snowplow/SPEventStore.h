@@ -22,7 +22,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class SPPayload;
+@class LegacySPPayload;
 @class FMDatabaseQueue;
 
 @interface SPEventStore : NSObject
@@ -44,7 +44,7 @@
  *  @param payload A SnowplowPayload instance to be inserted into the database.
  *  @return If the insert was successful, we return the rowId of the inserted entry, otherwise -1. We explicitly do this in the case of an error, sqlite would return the previous successful insert leading to incorrect data removals.
  */
-- (long long int) insertEvent:(SPPayload *)payload;
+- (long long int) insertEvent:(LegacySPPayload *)payload;
 
 /**
  *  Inserts a dictionary into to events table. Mainly used in insertEvent: for SnowplowPayload events.

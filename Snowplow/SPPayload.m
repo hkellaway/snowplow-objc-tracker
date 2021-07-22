@@ -23,7 +23,7 @@
 #import "Snowplow.h"
 #import "SPPayload.h"
 
-@implementation SPPayload {
+@implementation LegacySPPayload {
     NSMutableDictionary * _payload;
 }
 

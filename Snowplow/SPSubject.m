@@ -25,9 +25,9 @@
 #import "SPPayload.h"
 #import "SPUtilities.h"
 
-@implementation SPSubject {
-    SPPayload * _standardDict;
-    SPPayload * _platformDict;
+@implementation LegacySPSubject {
+    LegacySPPayload * _standardDict;
+    LegacySPPayload * _platformDict;
 }
 
 - (id) init {
@@ -37,7 +37,7 @@
 - (id) initWithPlatformContext:(BOOL)platformContext {
     self = [super init];
     if (self) {
-        _standardDict = [[SPPayload alloc] init];
+        _standardDict = [[LegacySPPayload alloc] init];
         [self setStandardDict];
         if (platformContext) {
             [self setPlatformDict];
@@ -46,11 +46,11 @@
     return self;
 }
 
-- (SPPayload *) getStandardDict {
+- (LegacySPPayload *) getStandardDict {
     return _standardDict;
 }
 
-- (SPPayload *) getPlatformDict {
+- (LegacySPPayload *) getPlatformDict {
     return _platformDict;
 }
 
@@ -109,7 +109,7 @@
 // Platform Dictionary
 
 - (void) setPlatformDict {
-    _platformDict = [[SPPayload alloc] init];
+    _platformDict = [[LegacySPPayload alloc] init];
     [_platformDict addValueToPayload:[SPUtilities getOSType]            forKey:kSPPlatformOsType];
     [_platformDict addValueToPayload:[SPUtilities getOSVersion]         forKey:kSPPlatformOsVersion];
     [_platformDict addValueToPayload:[SPUtilities getDeviceVendor]      forKey:kSPPlatformDeviceManu];

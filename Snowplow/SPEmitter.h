@@ -23,7 +23,7 @@
 #import <Foundation/Foundation.h>
 #import "SPRequestCallback.h"
 
-@class SPPayload;
+@class LegacySPPayload;
 @class SPEventStore;
 
 enum SPBufferOptions {
@@ -36,7 +36,7 @@ enum SPRequestOptions {
     SPRequestPost
 };
 
-@protocol SPEmitterBuilder <NSObject>
+@protocol LegacySPEmitterBuilder <NSObject>
 
 - (void) setUrlEndpoint:(NSURL *)urlEndpoint;
 - (void) setHttpMethod:(enum SPRequestOptions)method;
@@ -47,7 +47,7 @@ enum SPRequestOptions {
 
 @end
 
-@interface SPEmitter : NSObject <SPEmitterBuilder>
+@interface LegacySPEmitter : NSObject <LegacySPEmitterBuilder>
 
 @property (readonly, nonatomic) enum    SPRequestOptions      httpMethod;
 @property (readonly, nonatomic) enum    SPBufferOptions       bufferOption;
@@ -59,7 +59,7 @@ enum SPRequestOptions {
 /**
  * Builds the Emitter using a build block of functions.
  */
-+ (instancetype) build:(void(^)(id<SPEmitterBuilder>builder))buildBlock;
++ (instancetype) build:(void(^)(id<LegacySPEmitterBuilder>builder))buildBlock;
 
 /**
  * Initializes a newly allocated SnowplowEmitter
@@ -71,7 +71,7 @@ enum SPRequestOptions {
  * Inserts a SnowplowPayload object into the buffer to be sent in the next POST requests. Use this in favour over addToBuffer:
  * @param spPayload A SnowployPayload containing a completed event to be added into the buffer.
  */
-- (void) addPayloadToBuffer:(SPPayload *)spPayload;
+- (void) addPayloadToBuffer:(LegacySPPayload *)spPayload;
 
 /**
  * Empties the buffer of events using the respective HTTP request method in httpMethod.

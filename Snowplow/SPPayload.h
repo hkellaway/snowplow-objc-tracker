@@ -22,7 +22,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SPPayload : NSObject
+@interface LegacySPPayload : NSObject
 
 /**
  *  Initializes a newly allocated SnowplowPayload

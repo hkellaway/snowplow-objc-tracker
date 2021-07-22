@@ -22,9 +22,9 @@
 
 #import <Foundation/Foundation.h>
 
-@class SPPayload;
+@class LegacySPPayload;
 
-@interface SPSubject : NSObject
+@interface LegacySPSubject : NSObject
 
 /**
  * Initializes a newly allocated SnowplowSubject object.
@@ -43,13 +43,13 @@
  * Gets all standard dictionary pairs to decorate the event with.
  * @return a SnowplowPayload with all standard pairs
  */
-- (SPPayload *) getStandardDict;
+- (LegacySPPayload *) getStandardDict;
 
 /**
  * Gets all platform dictionary pairs to decorate event with.
  * @return a SnowplowPayload with all platform specific pairs
  */
-- (SPPayload *) getPlatformDict;
+- (LegacySPPayload *) getPlatformDict;
 
 /**
  * Sets the User ID

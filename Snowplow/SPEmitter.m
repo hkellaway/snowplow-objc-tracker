@@ -29,7 +29,7 @@
 #import "SPWeakTimerTarget.h"
 #import "FMDB.h"
 
-@interface SPEmitter ()
+@interface LegacySPEmitter ()
 
 @property (nonatomic) enum    SPRequestOptions      httpMethod;
 @property (nonatomic) enum    SPBufferOptions       bufferOption;
@@ -40,7 +40,7 @@
 
 @end
 
-@implementation SPEmitter {
+@implementation LegacySPEmitter {
     SPEventStore *     _db;
     NSURL *            _url;
     NSTimer *          _timer;
@@ -51,8 +51,8 @@
 
 // SnowplowEmitter Builder
 
-+ (instancetype) build:(void(^)(id<SPEmitterBuilder>builder))buildBlock {
-    SPEmitter* emitter = [SPEmitter new];
++ (instancetype) build:(void(^)(id<LegacySPEmitterBuilder>builder))buildBlock {
+  LegacySPEmitter* emitter = [LegacySPEmitter new];
     if (buildBlock) {
         buildBlock(emitter);
     }
@@ -91,7 +91,7 @@
             _urlEndpoint = [_url URLByAppendingPathComponent:kSPEndpointPost];
         }
     } else {
-        [NSException raise:@"Invalid SPEmitter Endpoint" format:@"An invalid Emitter URL was found: %@", _url];
+        [NSException raise:@"Invalid LegacySPEmitter Endpoint" format:@"An invalid Emitter URL was found: %@", _url];
     }
 }
 
@@ -132,7 +132,7 @@
 
 // Builder Finished
 
-- (void) addPayloadToBuffer:(SPPayload *)spPayload {
+- (void) addPayloadToBuffer:(LegacySPPayload *)spPayload {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [_db insertEvent:spPayload];
         [self flushBuffer];

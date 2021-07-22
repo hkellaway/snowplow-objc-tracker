@@ -22,7 +22,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class SPPayload;
+@class LegacySPPayload;
 
 @interface SPSession : NSObject
 
@@ -85,7 +85,7 @@
  * Returns the session dictionary
  * @return a SnowplowPayload containing the session dictionary
  */
-- (SPPayload *) getSessionDict;
+- (LegacySPPayload *) getSessionDict;
 
 /**
  * Returns the current session index count

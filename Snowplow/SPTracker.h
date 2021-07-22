@@ -22,15 +22,15 @@
 
 #import <Foundation/Foundation.h>
 
-@class SPEmitter;
-@class SPPayload;
-@class SPSubject;
+@class LegacySPEmitter;
+@class LegacySPPayload;
+@class LegacySPSubject;
 @class SPSession;
 
-@protocol SPTrackerBuilder <NSObject>
+@protocol LegacySPTrackerBuilder <NSObject>
 
-- (void) setEmitter:(SPEmitter *)emitter;
-- (void) setSubject:(SPSubject *)subject;
+- (void) setEmitter:(LegacySPEmitter *)emitter;
+- (void) setSubject:(LegacySPSubject *)subject;
 - (void) setAppId:(NSString *)appId;
 - (void) setBase64Encoded:(BOOL)base64Encoded;
 - (void) setTrackerNamespace:(NSString *)trackerNamespace;
@@ -41,10 +41,10 @@
 
 @end
 
-@interface SPTracker : NSObject <SPTrackerBuilder>
+@interface LegacySPTracker : NSObject <LegacySPTrackerBuilder>
 
-@property (readonly, nonatomic, retain) SPEmitter * emitter;
-@property (readonly, nonatomic, retain) SPSubject * subject;
+@property (readonly, nonatomic, retain) LegacySPEmitter * emitter;
+@property (readonly, nonatomic, retain) LegacySPSubject * subject;
 @property (readonly, nonatomic, retain) NSString *  appId;
 @property (readonly, nonatomic, retain) NSString *  trackerNamespace;
 @property (readonly, nonatomic)         BOOL        base64Encoded;
@@ -52,7 +52,7 @@
 /**
  * Builds the Tracker using a build block of functions.
  */
-+ (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock;
++ (instancetype) build:(void(^)(id<LegacySPTrackerBuilder>builder))buildBlock;
 
 /**
  *  Initializes a newly allocated SnowplowTracker.
@@ -242,7 +242,7 @@
  *  @param quantity Item quantity
  *  @param currency The currency the price is expressed in
  */
-- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+- (LegacySPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                                 sku:(NSString *)sku
                                                name:(NSString *)name
                                            category:(NSString *)category
@@ -261,7 +261,7 @@
  *  @param currency The currency the price is expressed in
  *  @param context An array of custom context for the event
  */
-- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+- (LegacySPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                                 sku:(NSString *)sku
                                                name:(NSString *)name
                                            category:(NSString *)category
@@ -281,7 +281,7 @@
  *  @param currency The currency the price is expressed in
  *  @param timestamp Optional user provided timestamp.
  */
-- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+- (LegacySPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                                 sku:(NSString *)sku
                                                name:(NSString *)name
                                            category:(NSString *)category
@@ -302,7 +302,7 @@
  *  @param context An array of custom context for the event
  *  @param timestamp Optional user provided timestamp.
  */
-- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+- (LegacySPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                                 sku:(NSString *)sku
                                                name:(NSString *)name
                                            category:(NSString *)category

@@ -41,7 +41,7 @@
     NSString *  _previousSessionId;
     NSInteger   _sessionIndex;
     NSString *  _sessionStorage;
-    SPPayload * _sessionDict;
+    LegacySPPayload * _sessionDict;
     NSTimer *   _sessionTimer;
 }
 
@@ -123,7 +123,7 @@ NSString * const kSessionSavePath = @"session.dict";
     [self startChecker];
 }
 
-- (SPPayload *) getSessionDict {
+- (LegacySPPayload *) getSessionDict {
     [self updateAccessedLast];
     return _sessionDict;
 }
@@ -202,7 +202,7 @@ NSString * const kSessionSavePath = @"session.dict";
 }
 
 - (void) updateSessionDict {
-    _sessionDict = [[SPPayload alloc] init];
+    _sessionDict = [[LegacySPPayload alloc] init];
     [_sessionDict addValueToPayload:_userId forKey:kSPSessionUserId];
     [_sessionDict addValueToPayload:_currentSessionId forKey:kSPSessionId];
     [_sessionDict addValueToPayload:_previousSessionId forKey:kSPSessionPreviousId];

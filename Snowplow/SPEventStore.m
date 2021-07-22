@@ -63,7 +63,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
     return res;
 }
 
-- (long long int) insertEvent:(SPPayload *)payload {
+- (long long int) insertEvent:(LegacySPPayload *)payload {
     return [self insertDictionaryData:[payload getPayloadAsDictionary]];
 }
 
